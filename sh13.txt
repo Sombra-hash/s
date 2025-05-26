@@ -1,0 +1,37 @@
+#!/bin/bash
+# Uso:  ./informa.sh  -m|-a  DNI
+#   -m  → sueldo mensual
+#   -a  → sueldo anual (12 sueldos + 2 pagas extra)
+
+file=bdreparto
+[ $# -ne 2 ] && { echo "Uso: $0 -m|-a DNI"; exit 1; }
+
+op=$1          # -m o -a
+dni=$2
+
+# 1) Buscar la línea del empleado
+line=$(grep "$dni" "$file") || { echo "DNI no encontrado"; exit 1; }
+
+# 2) Extraer campos (separador ':')
+nombre=$(echo "$line" | cut -d: -f2)
+apellido=$(echo "$line" | cut -d: -f3)
+sueldo=$(echo "$line" | cut -d: -f5)   # 5º campo = sueldo
+puesto=$(echo "$line" | cut -d: -f6)   # 6º campo = puesto
+
+if [ "$op" = "-m" ]; then                       # ── opción mensual
+    echo "$nombre $apellido cobra $sueldo € al mes"
+
+elif [ "$op" = "-a" ]; then                     # ── opción anual
+    if   [ "$puesto" = "Productor" ];        then extra=1500
+    elif [ "$puesto" = "Director" ];         then extra=900
+    elif [ "$puesto" = "Actor principal" ];  then extra=854
+    elif [ "$puesto" = "Actor" ];            then extra=700
+    elif [ "$puesto" = "Guionista" ];        then extra=500
+    else extra=0
+    fi
+    anual=$(( sueldo * 12 + extra * 2 ))
+    echo "$nombre $apellido cobra $anual € al año"
+else
+    echo "Opción no válida (usa -m o -a)"
+fi
+

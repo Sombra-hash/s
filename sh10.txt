@@ -1,0 +1,11 @@
+#!/bin/bash
+while :; do
+  read -p "Nombre: " n
+  read -p "Dirección: " d
+  read -p "Teléfono: " t
+  echo "$n  |  $d  |  $t" >> agenda.txt
+  echo "Añadido."
+
+  read -p "Enter para continuar / FIN para salir: " x
+  [ "$x" = FIN ] && break      # si escribes FIN, sal del bucle
+done

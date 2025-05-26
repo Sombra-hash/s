@@ -1,0 +1,36 @@
+#!/bin/bash
+# cuenta_tipos – cuenta y lista:
+#   d  (directorios)
+#   e  (ejecutables)
+#   dv (dispositivos)
+#   t  (archivos de texto)
+# Uso:  cuenta_tipos [dir]   si omito dir, usa "."
+
+dir=${1:-.}          # "." si no pasas argumento
+[ -d "$dir" ] || exit 1   # si no existe el dir, error 1
+
+echo "Directorio analizado: $dir"
+echo
+
+echo "d  (directorios):"
+ls -1p "$dir" | grep '/$'          # lista
+echo "Total d  : $(ls -1p "$dir" | grep -c '/$')" 
+echo
+
+echo "e  (ejecutables):"
+ls -1p "$dir" | grep '\*$'         # lista
+echo "Total e  : $(ls -1p "$dir" | grep -c '\*$')"
+echo
+
+echo "dv (dispositivos):"
+ls -1 "$dir" | grep -E '^[bc]'     # lista
+echo "Total dv : $(ls -1 "$dir" | grep -c -E '^[bc]')"
+echo
+
+echo "t  (archivos de texto):"
+for f in "$dir"/*; do              # lista
+    file -b "$f" | grep -qi text && echo "$(basename "$f")"
+done
+echo "Total t  : $(for f in "$dir"/*; do file -b "$f" | grep -qi text && echo; done | wc -l)"
+
+exit 0

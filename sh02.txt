@@ -1,0 +1,12 @@
+#!/bin/bash
+# saludos: dice buenos días / tardes / noches según la hora
+
+hora=$(date +%H)   # 00-23
+
+if [ "$hora" -lt 12 ]; then
+    echo "Buenos días"
+elif [ "$hora" -lt 20 ]; then
+    echo "Buenas tardes"
+else
+    echo "Buenas noches"
+fi

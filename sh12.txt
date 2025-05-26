@@ -1,0 +1,11 @@
+#!/bin/bash
+# Uso:  buscapalabras.sh  ficherodepalabras  ficherodebusqueda
+
+ficherodepalabras=$1        # lista de palabras
+ficherodebusqueda=$2        # texto donde buscar
+
+while read palabra; do
+  [ -z "$palabra" ] && continue              # salta líneas vacías
+  lineas=$(grep -i "$palabra" "$ficherodebusqueda" | wc -l)
+  echo "$palabra $lineas"
+done < "$ficherodepalabras"

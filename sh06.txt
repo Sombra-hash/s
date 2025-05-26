@@ -1,0 +1,20 @@
+#!/bin/bash
+# crear.sh  [nombre]  [tamañoKB]
+# - Si NO pongo nombre, usará  fichero_vacio
+# - Si NO pongo tamaño, usará  1024  (KB)
+
+# 1) nombre
+nombre=$1
+if [ -z "$nombre" ]; then      # -z  →  la variable está VACÍA
+    nombre=fichero_vacio
+fi
+
+# 2) tamaño
+tam=$2
+if [ -z "$tam" ]; then
+    tam=1024                   # 1 MB
+fi
+
+# 3) crear el archivo del tamaño pedido
+truncate -s "$tam"K "$nombre"  # K = kilobytes
+echo "Creado: $nombre  ($tam KB)"

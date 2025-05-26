@@ -1,0 +1,17 @@
+#!/bin/bash
+# lista_archivos.sh – directorio en curso
+#   /  directorio
+#   *  ejecutable
+#   -  archivo normal
+# si hay argumento, entramos en ese directorio [ -n "$1" ] && cd "$1"
+
+for a in *; do
+    if   [ -d "$a" ]; then
+        echo "$a/"
+    elif [ -x "$a" ]; then
+        echo "$a*"
+    else
+        echo "$a-"
+    fi
+done
+

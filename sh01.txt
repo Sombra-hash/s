@@ -1,0 +1,20 @@
+#!/bin/bash
+# selector_saludo_aleatorio.sh
+# Muestra un saludo según la hora con un muñeco aleatorio de cowsay (versión sencilla)
+
+hora=$(date +%H)                      # Hora actual 00-23
+
+# Elegimos saludo según la hora
+if [ "$hora" -lt 12 ]; then
+    saludo="Buenos días"
+elif [ "$hora" -lt 20 ]; then
+    saludo="Buenas tardes"
+else
+    saludo="Buenas noches"
+fi
+
+# Lista de muñecos en una misma línea, shuf saca uno al azar
+muneco=$(echo "duck tux koala whale" | tr ' ' '\n' | shuf -n1)
+
+# Mostramos el mensaje
+cowsay -f "$muneco" "$saludo"

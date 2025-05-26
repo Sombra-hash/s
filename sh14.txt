@@ -1,0 +1,12 @@
+#!/bin/bash
+dest="$HOME/copia"
+mkdir -p "$dest"
+
+for f in *; do
+  if [ -f "$f" ]; then          # si es archivo normal
+      cp -n "$f" "$dest"        # -n = no sobrescribir si ya existe
+      echo "Copiado: $f"
+  elif [ -d "$f" ]; then        # si es directorio
+      echo "Directorio ignorado: $f"
+  fi
+done

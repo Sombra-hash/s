@@ -1,0 +1,17 @@
+#!/bin/bash
+# Uso:  mayormenorsuma.sh  n1 n2 n3 ...
+
+
+M=$1   # menor (de momento)
+m=$1   # mayor (de momento)
+s=0    # suma
+
+for n in "$@"; do        # recorre todos los números dados
+  (( s+=n ))             # suma total
+  (( n < m )) && m=$n    # actualiza menor
+  (( n > M )) && M=$n    # actualiza mayor
+done
+
+echo "Menor : $m"
+echo "Mayor : $M"
+echo "Suma  : $s"

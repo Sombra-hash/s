@@ -1,0 +1,35 @@
+#!/bin/bash
+f=agenda.txt          # archivo donde se guarda todo
+touch "$f"            # lo crea si aún no existe
+
+while true; do
+  echo
+  echo "1) Añadir   2) Borrar   3) Buscar   4) Listar   5) Salir"
+  read -p "Elige una opción (1-5): " op
+
+  if [ "$op" = "1" ]; then
+      read -p "Nombre: " n
+      read -p "Dirección: " d
+      read -p "Teléfono: " t
+      echo "$n|$d|$t" >> "$f"
+      echo "Contacto añadido."
+
+  elif [ "$op" = "2" ]; then
+      read -p "Nombre a borrar: " n
+      grep -v "$n|" "$f" > tmp && mv tmp "$f"
+      echo "Si existía, se eliminó."
+
+  elif [ "$op" = "3" ]; then
+      read -p "Texto a buscar: " t
+      grep "$t" "$f"
+
+  elif [ "$op" = "4" ]; then
+      cat "$f"
+
+  elif [ "$op" = "5" ]; then
+      break    # salir del menú
+
+  else
+      echo "Opción no válida."
+  fi
+done

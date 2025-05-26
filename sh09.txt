@@ -1,0 +1,20 @@
+#!/bin/bash
+read -p "Introduce tu año de nacimiento: " anio      # mensaje de entrada
+
+case $((anio%12)) in                                  # resto 0-11
+ 0) animal="Mono" ;;
+ 1) animal="Gallo" ;;
+ 2) animal="Perro" ;;
+ 3) animal="Cerdo" ;;
+ 4) animal="Rata" ;;
+ 5) animal="Buey" ;;
+ 6) animal="Tigre" ;;
+ 7) animal="Conejo" ;;
+ 8) animal="Dragón" ;;
+ 9) animal="Serpiente" ;;
+ 10) animal="Caballo" ;;
+ 11) animal="Cabra" ;;
+esac
+
+echo "Si naciste en $anio te corresponde $animal según el horóscopo chino."
+
